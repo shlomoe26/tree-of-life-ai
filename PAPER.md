@@ -20,7 +20,8 @@ diagnosis, when trying to learn the structure itself** (from a flat sequence, wi
 three *binary* composition methods (greedy, Gumbel, supervised) all plateau at ~0.45, even with the
 correct structure. In our setup the binary composers, not the search for structure, were the
 bottleneck. (This is specific to our small models: published binary cells solve ListOps when the tree
-is given, see §6.) **Second positive contribution, suggested by that observation:**
+is given, and a follow-up shows that the plateau is the modular sum left unlearned, partly through
+under-training; see §4.7 and §6.) **Second positive contribution, suggested by that observation:**
 a **latent-structure parser that merges K-ary groups** with the SAA as composer, trained with a
 **curriculum** (freeze the structure while the composer becomes competent, then wean it off), reaches
 **0.909 ± 0.017** from a flat sequence — 98.3% of the ceiling obtained with the structure given
@@ -209,7 +210,16 @@ literature, binary cells given the correct tree reach 98.7% (TreeLSTM, Nangia & 
 99.95% (GRC, Ray Chowdhury & Caragea 2023) on ListOps, which includes the median and the modular sum.
 What our data shows is narrower: at this size and training budget our binary composers failed where
 K-ary aggregation (SAA) succeeded, and the failures of our GRC-style fold and of our latent parser
-are the same failure. We do not know why our binary composers failed.
+are the same failure.
+
+**Follow-up (added after the first version of this report; `RESULTS.md`, phase 18).** Splitting
+accuracy by operator shows that our binary folds learn the median perfectly and leave the modular
+sum at chance, so the explanation above named the wrong operator. On a task reduced to a single
+operator application, the folds reach 100% on the sum when trained much longer (30,000 iterations
+instead of 5,000, with a doubled batch): at that depth they were under-trained. On the full task,
+30,000 iterations did not help (0.451, sum still at chance), so the plateau is not fully explained.
+The K-ary parser of §4.8 was therefore not derived from a correct diagnosis; what the data supports
+is that its attention composer learns the sum quickly where our folds did not.
 
 This diagnosis **points to an architecture we had not tried**: a latent-structure parser that merges
 **K-ary groups** (operator + span of operands) through the learned aggregator, instead of pairs. A
@@ -316,8 +326,10 @@ therefore does not dispense with checking what the composer can actually represe
   parse supervision (Havrylov et al. 2019; Ordered Memory; CRvNN; Beam Tree cells), far beyond our
   0.660 without structure signal; (c) that mean-like aggregation loses counts, and that several
   aggregators plus a degree term fix it, is known from graph networks (Xu et al. 2019; Corso et al.
-  2020); (d) the harm we attribute to the hypernetwork may be an initialisation problem (Chang et al.
-  2020), which we did not test.
+  2020); (d) the harm we attribute to the hypernetwork could have been an initialisation problem (Chang
+  et al. 2020). A follow-up run rules out the scale of the generated weights at initialisation
+  (0.464 with calibrated scale against 0.463 without; `RESULTS.md`, phase 19); why the hypernetwork
+  hurts remains an interpretation.
 - **No comparison with a published latent-tree method.** Our binary references (§4.7) are our own
   implementations; we did not train, at equal budget, a latent parser from the literature (for example
   a Gumbel-softmax Tree-LSTM). Without that comparison one can say the K-ary parser works, not that it

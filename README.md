@@ -61,7 +61,10 @@ Along the way, an apparent accuracy ceiling at 0.79 turned out to be under-train
 When the tree is hidden and the model must choose what to merge, our four binary parsers (fixed fold,
 greedy, Gumbel, structure-supervised) all land between 0.41 and 0.47, even when the correct structure
 is supplied. This is a property of our small binary composers, not of binary composition: published
-binary cells reach 99% on ListOps when given the tree (see [`RELATED_WORK.md`](RELATED_WORK.md)). Merging a whole group (operator + its K operands) in one step, with the SAA as composer,
+binary cells reach 99% on ListOps when given the tree (see [`RELATED_WORK.md`](RELATED_WORK.md)). A
+follow-up experiment found what the plateau is: our binary cells learn the median perfectly and leave
+the modular sum at chance. On a single operator application they do learn the sum when trained six
+times longer; on the full task, three times more training changed nothing (`RESULTS.md`, phase 18). Merging a whole group (operator + its K operands) in one step, with the SAA as composer,
 reaches 0.925 with the structure supplied. With no structure signal at all it reaches 0.660; with a
 **curriculum** (correct structure for the first 30% of training, then withdrawn progressively) it
 reaches 0.909.
@@ -93,8 +96,11 @@ reaches **0.933 in distribution and 0.915 at depth 9**.
   forcing, multi-aggregator pooling with a count term, and dropping positions for length
   generalisation all exist. What is ours is this particular combination and the record of how we
   got there, mistakes included.
-- **The hypernetwork result may be an initialisation effect.** Generated weights need a dedicated
-  initialisation, which we did not use.
+- **Why the hypernetwork hurts is not established.** A follow-up rules out the scale of its
+  generated weights at initialisation (`RESULTS.md`, phase 19); "it costs capacity" remains an
+  interpretation.
+- **Two explanations given in the first version of the paper were wrong** and are corrected in
+  place: that binary composition cannot handle these operators, and that the median was the hard one.
 - **One synthetic task.** A custom generator with fixed arity, small trees and controlled depth.
   Numbers are not comparable with published ListOps results, and nothing is tested on real data.
 - **The best parser results use the correct structure during training** (teacher forcing or the
@@ -151,8 +157,11 @@ The experiments, in the configuration used for the reported numbers:
 ```bash
 # Tree given: compare cells at equal budget (phases 8-9)
 python listops_experiment/listops_run.py --mode full --ops SM,MED --ood_depths 5,7,9 \
-    --kinds R0,MultiStat,SAA_h4 --budget_ref Etz4_direct \
+    --kinds R0,MultiStat,SAA_h4 --budget_ref Etz4_direct --batch 64 --p_deep 0.2 \
     --iters 10000 --cosine --warmup 300 --n_train 50000 --n_test 1000 --out my_cells.jsonl
+#   phases 5-7 (3,000 iterations): --iters 3000 --n_train 15000, no --cosine
+#   other kinds: Etz4, Etz4_direct, Etz4_hinit, GRC, LSTMFold, Hist, Linear ...
+#   --per_op   also report accuracy per root operator      --clip 1.0   gradient clipping
 
 # Flat sequences, binary parser (phase 10)
 python listops_experiment/listops_parser.py --kinds l2r,soft,gumbel,sup --hidden 512 --cosine --out my_binary.jsonl
@@ -180,9 +189,9 @@ runs with the stored results.
 
 Two caveats on exact reproduction, detailed at the end of `RESULTS.md`: the phases run before the
 MODE and RNG operators were added used a 4-operator vocabulary, and the command lines above are
-reconstructed from the plans and from the stored parameter counts rather than copied from a log. They
-reproduce the model sizes; for the tree-given experiments a data option such as `--p_deep` may differ
-from the original runs.
+reconstructed from the plans, the stored parameter counts and the session logs of the original runs
+rather than copied from a script. For the tree-given experiments the options above reproduced two
+stored runs to within 0.04 (phase 19); the parser command lines were not re-checked in that way.
 
 ## About the plans
 

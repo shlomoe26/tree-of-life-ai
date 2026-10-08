@@ -25,11 +25,18 @@ Published results do not support that as a general statement:
 
 So binary cells *can* carry what a median or a modular sum needs when the tree is given. Our
 GRC-style fold on the gold tree reached 0.456. The honest reading is therefore narrower than the one
-in the paper: **our small binary composers, in our training regime, did not learn these operators**,
-and we do not know why (64-d state, 10,000 iterations, our own approximation of the cell, a variant
-restricted to SM and MED with arity exactly 5 are all candidates). What remains true is the
-within-project comparison: at the same budget and with the same training recipe, the K-ary window
-with a set-attention composer learned the task and our binary composers did not.
+in the paper: **our small binary composers, in our training regime, did not learn these operators**.
+What remains true is the within-project comparison: at the same budget and with the same training
+recipe, the K-ary window with a set-attention composer learned the task and our binary composers did
+not.
+
+**Follow-up experiment (added 2026-10-09; `RESULTS.md`, phase 18).** We split accuracy by operator.
+Our binary folds learn the **median perfectly** and leave the **modular sum at chance**: the paper's
+explanation named the wrong operator. On a task reduced to one operator application, the same folds
+reach 100% on the sum when trained six times longer with a doubled batch: they were under-trained,
+not incapable. State width (64 vs 128) and cell design (GRC-style vs Tree-LSTM-style) made no
+difference. On the full task, however, 30,000 iterations left the sum at chance, so the gap with the
+published numbers is only partly explained.
 
 ## 2. Unsupervised structure learning on ListOps was already solved
 
@@ -99,8 +106,12 @@ attention (mean-like) aggregator is what degree scalers do.
   (2020), Principled Weight Initialization for Hypernetworks [read, via search summary]** show that
   standard initialisations give generated weights at the wrong scale and hurt training. Our
   hypernetwork used a default initialisation. Our conclusion that "the hypernetwork costs effective
-  capacity" is therefore **confounded**: part or all of the deficit could be an initialisation
-  problem. We did not test this.
+  capacity" was therefore confounded.
+  **Follow-up experiment (added 2026-10-09; `RESULTS.md`, phase 19).** Generated weights start at
+  1.6 times the standard deviation of the direct ablation. Rescaling them to the same scale changes
+  nothing (0.464 against 0.463; direct weights 0.646). Output scale at initialisation is not the
+  cause. The per-operator split suggests another reading, untested: with direct weights the model
+  starts to learn the modular sum within the budget, with the hypernetwork it does not.
 
 ## 6. Our task is not the published ListOps
 
@@ -117,9 +128,9 @@ experiment does not test it, since training and test arities are the same.
 | claim in the write-up | status after this pass |
 |---|---|
 | The Etz architecture loses to a flat MLP | stands (internal comparison) |
-| The hypernetwork is the cause | the ablation stands; the *interpretation* is confounded by initialisation |
+| The hypernetwork is the cause | the ablation stands and was reproduced; initialisation scale is ruled out; "it costs capacity" is still an interpretation |
 | Learned set attention beats fixed pooling when the tree is given | stands; it is an instance of known set-pooling results |
-| "Binarisation is the wall" | **does not stand as a general claim**; true only of our binary composers in our regime |
+| "Binarisation is the wall" | **withdrawn**. The plateau is the modular sum left unlearned; at depth 1 more training fixes it, on the full task 30,000 iterations did not |
 | K-ary parser + curriculum reaches 0.91-0.97 | stands as measured; uses gold structure; far from published unsupervised results |
 | Removing positions fixes depth generalisation | stands; consistent with prior work |
 | A count feature fixes variable arity | stands; a known property of mean-like aggregation |

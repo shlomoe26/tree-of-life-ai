@@ -1,0 +1,4 @@
+{"seed": 0, "kind": "GRC", "params": 208418, "acc": {"in": 1.0, "ood2": 0.349}, "per_op": {"in_MED": 1.0, "in_SM": 1.0}}
+{"seed": 0, "kind": "LSTMFold", "params": 207034, "acc": {"in": 1.0, "ood2": 0.362}, "per_op": {"in_MED": 1.0, "in_SM": 1.0}}
+{"seed": 1, "kind": "GRC", "params": 208418, "acc": {"in": 1.0, "ood2": 0.377}, "per_op": {"in_MED": 1.0, "in_SM": 1.0}}
+{"seed": 1, "kind": "LSTMFold", "params": 207034, "acc": {"in": 0.998, "ood2": 0.416}, "per_op": {"in_MED": 0.9960552268244576, "in_SM": 1.0}}

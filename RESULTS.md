@@ -17,8 +17,10 @@ the data.
   three seeds it is an indication of spread, not a confidence interval. No significance tests were run.
 - **"Hard variant"** = operators SM (sum mod 10) and MED (median) only.
 - **Two training regimes.** Phases 4-7 use 3,000 iterations and 15,000 training examples. From
-  phase 8 on: 10,000 iterations, cosine schedule with warmup, 50,000 examples. The exact options of
-  each run are in the plans; the scripts' defaults are not always the values used.
+  phase 8 on: 10,000 iterations, cosine schedule with warmup, 50,000 examples. The hard-variant runs
+  on given trees (phases 5-9) used `--batch 64 --p_deep 0.2`, which are **not** the scripts' defaults
+  (32 and 0.3); this was recovered from the session logs of the original runs and confirmed by
+  reproducing two of them in phase 19.
 
 ## Phases 1-3 — Text tournament (not a controlled comparison)
 
@@ -156,8 +158,9 @@ With full structure supervision, free parsing (0.411) nearly reaches its teacher
 we tried sits between 0.41 and 0.47, however the structure is chosen. So in these runs the limit is
 our binary composer, not the discovery of structure. It is **not** a limit of binary composition in
 general: published binary cells given the tree reach 98.7% to 99.95% on ListOps (`RELATED_WORK.md`,
-§1). We do not know why ours failed. These are our own small binary parsers; a published latent-tree
-model was not run.
+§1). Phase 18 shows what the plateau is: the median is learned and the modular sum is not, and at
+depth 1 the sum is learned with more training. These are our own small binary parsers; a published
+latent-tree model was not run.
 
 Consolidation, same 10,000-iteration regime, **2 seeds** (`results_consol.jsonl`):
 
@@ -277,6 +280,109 @@ arity, no positions, `curr` mode (`results_ch01.jsonl`, `results_nopos.jsonl`, `
 
 Only three values were tried; a hold of 0 (weaning from the first step) was not.
 
+## Phase 18 — Follow-up: why did our binary composers plateau?
+
+Run after the literature check (`RELATED_WORK.md`), which showed that published binary cells solve
+ListOps when the tree is given. Plan and its two amendments: `plans/BINARY_AND_HYPERNET_PLAN.md`.
+New in this phase: accuracy is split by the operator at the root of the expression (`--per_op`), and
+a second binary cell, `LSTMFold` (Tree-LSTM-style fold with a memory cell), is added next to the
+GRC-style fold. Binary cells use gradient clipping at 1.0, which the earlier runs did not.
+
+**Depth 1 only** (one operator over five digits; train and test at depth 1). Hard variant,
+5,000 iterations, batch 32, 20,000 examples, 3 seeds (`results_binary_depth1.jsonl`,
+`results_binary_depth1_d128.jsonl`):
+
+| model | d | params | in | root = MED | root = SM |
+|---|---|---|---|---|---|
+| GRC-style fold | 64 | 208,418 | 0.560 ± 0.005 | 1.000 ± 0.000 | 0.107 ± 0.010 |
+| LSTMFold | 64 | 207,034 | 0.555 ± 0.005 | 1.000 ± 0.000 | 0.098 ± 0.011 |
+| GRC-style fold | 128 | 822,322 | 0.554 ± 0.002 | 1.000 ± 0.000 | 0.096 ± 0.004 |
+| LSTMFold | 128 | 819,042 | 0.565 ± 0.011 | 1.000 ± 0.000 | 0.117 ± 0.022 |
+| R0 (control) | 64 | 208,682 | 0.999 ± 0.001 | 1.000 ± 0.000 | 0.998 ± 0.002 |
+| SAA, 4 heads (control) | 64 | 212,698 | 0.997 ± 0.001 | 1.000 ± 0.000 | 0.993 ± 0.003 |
+
+Same task, **30,000 iterations, batch 64**, 2 seeds (`results_binary_depth1_long.jsonl`):
+
+| model | d | in | root = MED | root = SM |
+|---|---|---|---|---|
+| GRC-style fold | 64 | 1.000 ± 0.000 | 1.000 | 1.000 |
+| LSTMFold | 64 | 0.999 ± 0.001 | 0.998 | 1.000 |
+
+**Full task** (depths 1-4), 50,000 examples, batch 64, `--p_deep 0.2`, seed 0
+(`results_binary_full.jsonl`, `results_binary_long.jsonl`):
+
+| model | iterations | in | root = MED | root = SM | ood9 |
+|---|---|---|---|---|---|
+| GRC-style fold | 10,000 | 0.451 | 0.754 | 0.090 | 0.393 |
+| LSTMFold | 10,000 | 0.471 | 0.770 | 0.114 | 0.407 |
+| GRC-style fold | 30,000 | 0.451 | 0.744 | 0.101 | 0.387 |
+
+In the 30,000-iteration run, held-out accuracy was 0.477, 0.474, 0.450, 0.446, 0.457, 0.451 at
+5,000-iteration intervals while the training loss on the current batch fell from about 1.24 to 0.80.
+
+Verdict against the pre-registered grid:
+
+- **"One operator near 1.0, the other near chance"**: yes at depth 1 with 5,000 iterations. The
+  operator our folds miss is the **modular sum**. The median is learned perfectly. The explanation
+  given in the paper (a median cannot be decomposed pairwise) was wrong on the very point it named.
+- **State width and cell design** (hypotheses A3, A4): no effect at depth 1. Deviation from the
+  plan: the d = 128 models have about 820k parameters, not 208k, because the budget reference grows
+  with d, so that comparison is not at equal budget.
+- **Training length at depth 1** (amendment 1): with 30,000 iterations at batch 64 both folds reach
+  1.000 on the sum. So at depth 1 the folds were **under-trained** on SM, not unable to compute it.
+  Iterations and batch size changed together (12 times more examples seen), so we cannot say which
+  of the two mattered; one run logged 1.000 already at 10,000 iterations.
+- **Training length on the full task** (amendment 2): third row of its grid. After 30,000 iterations
+  SM is still at chance (0.101) and accuracy has not moved. Whether still longer training, more data
+  or a different schedule would get there is **not known**. The falling training loss with flat
+  held-out accuracy suggests the model is fitting its 50,000 training expressions rather than
+  learning the operator, but we did not measure training accuracy.
+
+What this changes: the 0.45 plateau that runs through phases 4 to 10 is "median largely learned, sum
+at chance" (roughly half the expressions have each operator at the root: 0.75 × ½ + 0.10 × ½ ≈ 0.43). It is not evidence about binary
+composition, and the K-ary parser was not "pointed to" by a correct diagnosis: it happened to use a
+composer (attention = a weighted mean) from which a fixed-size sum is easy to read.
+
+Limits: one seed for the full-task runs, two or three elsewhere; our generator, our budget.
+
+Runs made in the wrong regime before amendment 1 (batch 32, `--p_deep 0.3`), kept for the record and
+not used above: LSTMFold, full task, 10,000 iterations, 2 seeds: 0.417 ± 0.009 (MED 0.715, SM 0.100)
+(`results_binary_full_b32.jsonl`); GRC d = 128, 1 seed: 0.408 (MED 0.719, SM 0.076)
+(`results_binary_full_d128_b32.jsonl`).
+
+## Phase 19 — Follow-up: is the hypernetwork deficit an initialisation effect?
+
+At initialisation the generated weight matrices have standard deviation 0.198-0.207 (three seeds)
+against 0.125 for the direct-weights ablation. `Etz4_hinit` rescales the hypernetwork's output layer
+so that generated weights start at 0.125; nothing else changes. Regime of phase 5: hard variant,
+3,000 iterations, 15,000 examples, batch 64, `--p_deep 0.2` (`results_hypernet_init.jsonl`).
+
+| model | seeds | params | in | root = MED | root = SM | ood9 |
+|---|---|---|---|---|---|---|
+| Etz 4 worlds, direct weights (control) | 1 | 205,146 | 0.646 | 0.862 | 0.388 | 0.540 |
+| Etz 4 worlds, hypernetwork (control) | 1 | 1,111,066 | 0.463 | 0.770 | 0.096 | 0.423 |
+| Etz 4 worlds, hypernetwork, calibrated init | 2 | 1,111,066 | 0.464 ± 0.013 | 0.774 ± 0.007 | 0.093 ± 0.021 | 0.406 ± 0.010 |
+
+Verdict against the pre-registered grid:
+
+- **Controls**: reproduced. Seed 0 of the stored phase 5 runs gave 0.656 (direct) and 0.498
+  (hypernetwork); here 0.646 and 0.463, with a vocabulary two operators larger.
+- **"Etz4_hinit ≤ 0.55"**: yes (0.450 and 0.477). Bringing the generated weights to the right scale
+  at initialisation does not close the gap. The confound raised in `RELATED_WORK.md` is removed for
+  output scale; this is an empirical calibration, not the analytic scheme of Chang et al. (2020), and
+  other initialisation or optimisation effects are untested.
+- The per-operator split shows what the 0.29 gap of phase 5 consists of: with direct weights the
+  model has started to learn the sum (0.39) within 3,000 iterations; with the hypernetwork it has
+  not (0.10). Given phase 18, the hypernetwork may slow down the learning of SM rather than cap
+  capacity; we have no long hypernetwork run that would tell the two apart beyond the 10,000-iteration
+  run of phase 10 (0.469, no per-operator split).
+
+Limits: one seed per control, two for the intervention.
+
+Wrong-regime runs before amendment 1 (batch 32, `--p_deep 0.3`, seed 0), not used above:
+calibrated 0.405, hypernetwork 0.402, direct 0.367 (`results_hypernet_init_b32.jsonl`). In that
+regime the direct-weights model had not started to learn the sum either.
+
 ## What these results do not show
 
 - **No external baseline.** No published latent-tree parser was trained on this task. The results
@@ -284,7 +390,10 @@ Only three values were tried; a hold of 0 (weaning from the first step) was not.
   reach 99%+ on standard ListOps without parse supervision.
 - **A late and partial literature review** (`RELATED_WORK.md`). We do not claim that any component,
   or their combination, is new.
-- **The hypernetwork ablation is confounded** by weight initialisation, which was left at its default.
+- **Why the hypernetwork hurts is not established.** Output scale at initialisation is ruled out
+  (phase 19); a slower learning of the modular sum is a candidate, untested.
+- **The binary plateau on the full task is not explained.** At depth 1 it is under-training on the
+  modular sum (phase 18); on the full task 30,000 iterations did not remove it.
 - **One synthetic task.** Everything is ListOps or a variant of it, generated by
   `listops_experiment/listops_data.py`. This is **not** the ListOps benchmark of Long Range Arena:
   arity is fixed, trees are small, depth is controlled. The numbers are not comparable with published
@@ -321,8 +430,14 @@ Only three values were tried; a hold of 0 (weaning from the first step) was not.
 | `results_var_count.jsonl` | 15 | variable arity, no positions, with count |
 | `results_capstone.jsonl` | 16 | six operators, no positions |
 | `results_ch01.jsonl`, `results_ch05.jsonl` | 17 | curriculum hold 0.1 and 0.5 |
+| `results_binary_depth1.jsonl`, `results_binary_depth1_d128.jsonl` | 18 | depth-1 task, 5,000 iterations: GRC, LSTMFold (d = 64 and 128), R0, SAA_h4 |
+| `results_binary_depth1_long.jsonl` | 18 | depth-1 task, 30,000 iterations: GRC, LSTMFold |
+| `results_binary_full.jsonl`, `results_binary_long.jsonl` | 18 | full task: GRC and LSTMFold at 10,000 iterations, GRC at 30,000 |
+| `results_hypernet_init.jsonl` | 19 | Etz4_direct, Etz4, Etz4_hinit |
+| `results_binary_full_b32.jsonl`, `results_binary_full_d128_b32.jsonl`, `results_hypernet_init_b32.jsonl` | 18-19 | runs made with the wrong batch size and `--p_deep` before amendment 1; not used in the tables |
 
-Each line is `{"seed": …, "kind": …, "params": …, "acc": {"in": …, "ood5": …, …}}`.
+Each line is `{"seed": …, "kind": …, "params": …, "acc": {"in": …, "ood5": …, …}}`; the phase 18-19
+files also carry `"per_op": {"in_MED": …, "in_SM": …}`.
 
 ### Reproducing phases 4-12 exactly
 
