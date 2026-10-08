@@ -82,6 +82,8 @@ Every outcome is worth reporting; the last two close the question cleanly.
 Even in case of full success: a result **shown on a niche task**. To "count" beyond it, it would have
 to transfer (other tasks, variable arity, the standard ListOps benchmark).
 
-[Outcome. Step 1: in_tf = 0.925, first row. Step 2: free = 0.660, which is the **fourth** row
+[Outcome. Step 1: in_tf = 0.925, first row. Note that "binarisation diagnosis proven" overstates what
+this shows: published binary cells solve ListOps on gold trees, so the plateau belongs to our binary
+composers, not to binary composition (see `RELATED_WORK.md`). Step 2: free = 0.660, which is the **fourth** row
 ("structure partially learned"), not the third. The curriculum that later reached 0.909 was designed
 after seeing this number; it is not part of this pre-registered plan.]

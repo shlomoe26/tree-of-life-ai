@@ -310,6 +310,19 @@ réellement représenter.
 
 ## 6. Limites
 
+- **Les travaux publiés font déjà mieux sur la tâche standard.** Une première recherche
+  bibliographique, faite après les expériences, est résumée dans `RELATED_WORK.md` (dépôt public, en
+  anglais). Ses points principaux : (a) des cellules binaires résolvent ListOps quand l'arbre est
+  donné (98,7 % pour un TreeLSTM, Nangia & Bowman 2018 ; 99,95 % pour une GRC, Ray Chowdhury & Caragea
+  2023), médiane et somme modulaire comprises. Notre « mur binaire » à 0,45 (§4.7-4.8) reflète donc nos
+  composeurs et notre régime d'entraînement, **pas une propriété de la composition binaire** ;
+  l'explication « la médiane n'est pas décomposable par paires » ne tient pas comme énoncé général, et
+  « prouvé causalement » est trop fort. (b) Des modèles à arbre latent atteignent plus de 99 % sur
+  ListOps sans aucune supervision de structure (Havrylov et al. 2019 ; Ordered Memory ; CRvNN ; Beam
+  Tree), très au-delà de notre 0,660. (c) Qu'une agrégation de type moyenne perde les effectifs, et
+  qu'on y remédie avec plusieurs agrégateurs et un terme de degré, est connu en réseaux de graphes (Xu
+  et al. 2019 ; Corso et al. 2020). (d) Le tort attribué au hypernetwork peut venir de son
+  initialisation (Chang et al. 2020), ce que nous n'avons pas testé.
 - **Aucune comparaison à une méthode d'arbre latent publiée.** Nos références binaires (§4.7) sont nos
   propres implémentations ; nous n'avons pas entraîné, au même budget, un parseur latent de la
   littérature (par exemple un Tree-LSTM à Gumbel-softmax). Sans cette comparaison, on peut dire que le

@@ -17,9 +17,10 @@ its harm grows with depth. **First positive contribution:** once the rigid struc
 baseline improves by *softly enriching* the aggregation, ending in a **learned set-attention
 aggregator (SAA)** that raises accuracy to **0.988** (vs 0.959) when the tree is given. **Second
 diagnosis, when trying to learn the structure itself** (from a flat sequence, with no gold tree):
-three *binary* composition methods (greedy, Gumbel, supervised) all plateau at ~0.45. Finding the
-structure was not the problem; **binarisation was** (our operators are K-ary and symmetric, and the
-median cannot be decomposed pairwise). **Second positive contribution, pointed to by that diagnosis:**
+three *binary* composition methods (greedy, Gumbel, supervised) all plateau at ~0.45, even with the
+correct structure. In our setup the binary composers, not the search for structure, were the
+bottleneck. (This is specific to our small models: published binary cells solve ListOps when the tree
+is given, see §6.) **Second positive contribution, suggested by that observation:**
 a **latent-structure parser that merges K-ary groups** with the SAA as composer, trained with a
 **curriculum** (freeze the structure while the composer becomes competent, then wean it off), reaches
 **0.909 ± 0.017** from a flat sequence — 98.3% of the ceiling obtained with the structure given
@@ -54,8 +55,8 @@ Our contributions:
 3. a **positive design rule**: on this kind of task, progress comes from soft enrichment, not rigid
    structure — including against an architecture we believed optimal — ending in a learned
    set-attention aggregator (SAA, §4.6);
-4. a **causal diagnosis** of why structure induction failed (binarisation, not structure discovery,
-   §4.7), which **points to** an architecture we had not tried — a K-ary latent-structure parser — validated
+4. a **diagnosis** of why structure induction failed in our setup (our binary composers, not
+   structure discovery, §4.7), which **points to** an architecture we had not tried — a K-ary latent-structure parser — validated
    by a **curriculum** that reaches 98.3% of a fully supervised ceiling, starting from a flat sequence
    and with no discrete search (§4.8);
 5. three **generalisation tests** (§4.9), two of which end in a fix pointed to by a diagnosis: removing
@@ -200,12 +201,15 @@ tree **0.988**.
 
 The pattern is unambiguous: supervision does teach the structure (free parsing ≈ teacher-forced
 ceiling), but **the ceiling itself (~0.45) is the same for every binary composition** — fixed fold,
-GRC, greedy, Gumbel, supervised. The bottleneck was never structure discovery: it is **binarisation**.
-Our operators are K-ary and symmetric, and MED cannot be decomposed pairwise (a median of medians is
-wrong): a binary fold would have to carry the whole multiset in its state, which is not learned in
-this regime. That is exactly why **K-ary** aggregation (SAA) reaches 0.988 where every binary
-composition plateaus at ~0.45 — the failures of the GRC and of the latent parser are one and the same
-failure.
+GRC, greedy, Gumbel, supervised. In these runs the bottleneck was not structure discovery but the
+**binary composer**. Our working explanation at the time was that MED cannot be decomposed pairwise
+(a median of medians is wrong), so a binary fold has to carry the whole multiset in its state, which
+our composers did not learn. **This explanation does not hold as a general statement**: in the
+literature, binary cells given the correct tree reach 98.7% (TreeLSTM, Nangia & Bowman 2018) and
+99.95% (GRC, Ray Chowdhury & Caragea 2023) on ListOps, which includes the median and the modular sum.
+What our data shows is narrower: at this size and training budget our binary composers failed where
+K-ary aggregation (SAA) succeeded, and the failures of our GRC-style fold and of our latent parser
+are the same failure. We do not know why our binary composers failed.
 
 This diagnosis **points to an architecture we had not tried**: a latent-structure parser that merges
 **K-ary groups** (operator + span of operands) through the learned aggregator, instead of pairs. A
@@ -216,10 +220,10 @@ the experiment: `listops_experiment/plans/SAA_PARSER_PLAN.md`.
 
 ### 4.8 The SAA-Parser: the synthesis of the two frontiers, tested and validated
 
-**Step 1 (causality of the diagnosis).** On the new parser (window K+2, SAA composer), structure given
-(`sup`): **0.925 ± 0.009** — against ~0.45 for any binary composition. The diagnosis "binarisation is
-the culprit" is confirmed causally, well beyond the ≥0.9 threshold fixed in advance. In free parsing
-from scratch: 0.660 ± 0.021 — well above the binary wall, but far from the ceiling.
+**Step 1 (testing the diagnosis).** On the new parser (window K+2, SAA composer), structure given
+(`sup`): **0.925 ± 0.009** — against ~0.45 for our binary composers. Replacing the composer, with
+everything else unchanged, removes the plateau, beyond the ≥0.9 threshold fixed in advance. In free
+parsing from scratch: 0.660 ± 0.021 — well above our binary parsers, but far from the ceiling.
 
 **Ablation (K-ary window vs composer).** Same parser, interchangeable cell, free mode: vanilla
 (mean-pool) 0.634 ± 0.018, multistat 0.628 ± 0.003, SAA 0.660 ± 0.021 — **almost indistinguishable**.
@@ -305,6 +309,15 @@ therefore does not dispense with checking what the composer can actually represe
 
 ## 6. Limitations
 
+- **Published work already does better on the standard task.** A first literature pass, made after
+  the experiments, is in `RELATED_WORK.md`. Its main points: (a) binary cells solve ListOps when the
+  tree is given (98.7-99.95%), so our "binary plateau" reflects our composers and regime, not a
+  property of binary composition; (b) unsupervised latent-tree models reach 99%+ on ListOps with no
+  parse supervision (Havrylov et al. 2019; Ordered Memory; CRvNN; Beam Tree cells), far beyond our
+  0.660 without structure signal; (c) that mean-like aggregation loses counts, and that several
+  aggregators plus a degree term fix it, is known from graph networks (Xu et al. 2019; Corso et al.
+  2020); (d) the harm we attribute to the hypernetwork may be an initialisation problem (Chang et al.
+  2020), which we did not test.
 - **No comparison with a published latent-tree method.** Our binary references (§4.7) are our own
   implementations; we did not train, at equal budget, a latent parser from the literature (for example
   a Gumbel-softmax Tree-LSTM). Without that comparison one can say the K-ary parser works, not that it
@@ -354,8 +367,8 @@ corrected, its cosmological structure is neutral against an MLP. Pursuing the qu
 architecture does this task really call for", two positive contributions emerge, each pointed to by
 the diagnosis of the previous one rather than by elegance: (1) on a given tree, the **learned
 set-attention aggregator (SAA)** reaches 0.988 in-dist / 0.971 OOD at equal budget; (2) on a **flat
-sequence**, the finding that every *binary* composition plateaus at ~0.45 (the median cannot be
-decomposed pairwise) points to a **K-ary latent-structure parser**, which, trained with a
+sequence**, the finding that our *binary* composers plateau at ~0.45 even with the correct structure
+points to a **K-ary latent-structure parser**, which, trained with a
 **curriculum** that shields the composer from exposure bias, reaches **0.909 — 98.3% of the ceiling
 obtained with the structure given**, entirely by gradient, with no discrete search. The generalisation
 tests then correct its two measured weaknesses: without positional embeddings the degradation with
@@ -364,9 +377,9 @@ rises from 0.61 to 0.90. The combined configuration — six operators, one 192k-
 **0.933 / 0.915**. This is an honest negative result on Kabbalah, mechanistically diagnosed, that
 leads to two positive architectures and one rule of method: *look for what the diagnosis points to,
 not for what is elegant — and when a capable component fails in an unsupervised regime, suspect the
-order of learning before the architecture itself.* What this work does not yet show: that the K-ary
-parser does better than a latent parser from the literature, and that it holds outside a synthetic
-task.
+order of learning before the architecture itself.* What this work does not show: that the K-ary
+parser does better than a latent parser from the literature (published models are far ahead on
+standard ListOps, see `RELATED_WORK.md`), and that it holds outside a synthetic task.
 
 ---
 
