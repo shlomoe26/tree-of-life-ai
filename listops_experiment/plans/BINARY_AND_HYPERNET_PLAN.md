@@ -133,3 +133,31 @@ much and the depth-1 result already answers A1-A4):
 The reading grids are unchanged. One added line for A-long-d1: SM ≥ 0.9 after 30,000 iterations
 means the folds were under-trained on SM; SM still at chance means training length is not the issue
 at this scale.
+
+---
+
+## Amendment 2 (2026-10-08, 22:30) — restore the long full-task run
+
+**Seen so far** (right regime, so this run is not blind):
+- depth 1, 30,000 iterations, 2 seeds: GRC and LSTMFold both reach SM = 1.000 (in ≥ 0.998). With
+  5,000 iterations they were at chance on SM. So at depth 1 the folds were under-trained on SM.
+- full task, 10,000 iterations, GRC seed 0: in = 0.451, MED 0.754, SM 0.090 (the stored GRC run of
+  phase 8 was 0.456). On the full task SM is still at chance at this budget.
+- experiment B is finished (controls reproduced; see the results file).
+
+**Why this run.** Amendment 1 replaced the long full-task run (A5 of the original plan) with a
+depth-1 one to save time. The depth-1 answer now makes the full-task version the decisive test:
+is the 0.45 plateau of the full task also under-training?
+
+**Run.** GRC, d = 64, depths 1-4, **30,000 iterations**, 50,000 examples, batch 64, p_deep 0.2,
+cosine, clipping 1.0, seed 0, accuracy logged every 5,000 iterations → `results_binary_long.jsonl`.
+Note that the cosine schedule is stretched over 30,000 iterations, so this is not the 10,000-iteration
+run continued.
+
+**Reading grid.**
+
+| observation | conclusion |
+|---|---|
+| SM ≥ 0.9 and in ≥ 0.9 | the full-task plateau was under-training too; "binary composition cannot do it" is refuted in our own setup |
+| SM clearly above chance but the run not converged | under-training is at least part of it; say how far it got |
+| SM still at chance (≤ 0.15) | 30,000 iterations are not enough on the full task; the question stays open |
