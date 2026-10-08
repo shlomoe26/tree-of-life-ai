@@ -160,16 +160,41 @@ class GRCFoldCell(nn.Module):
         return h, op_emb.new_zeros(())
 
 
+class LSTMFoldCell(nn.Module):
+    """Binary Tree-LSTM-style fold with a separate memory cell (follow-up experiment, see
+    plans/BINARY_AND_HYPERNET_PLAN.md). Each node vector of size d is the concatenation [h ; c]
+    (d must be even). On a K-ary node the children are folded left to right, starting from the
+    operator embedding: (h, c) = TreeLSTM((h, c), (h_k, c_k)). Like GRCFoldCell this is a pairwise
+    composition; unlike it, the state has an additive memory path that no normalisation touches."""
+    def __init__(self, d, hidden):
+        super().__init__()
+        assert d % 2 == 0
+        self.m = d // 2
+        self.proj = nn.Sequential(nn.Linear(2 * self.m, hidden), nn.GELU(), nn.Linear(hidden, 5 * self.m))
+
+    def forward(self, op_emb, children):                  # (n,d), (n,K,d)
+        m = self.m
+        h, c = op_emb[:, :m], op_emb[:, m:]
+        for k in range(children.shape[1]):
+            hk, ck = children[:, k, :m], children[:, k, m:]
+            i, fl, fr, o, g = self.proj(torch.cat([h, hk], dim=-1)).chunk(5, dim=-1)
+            c = torch.sigmoid(fl + 1.0) * c + torch.sigmoid(fr + 1.0) * ck + torch.sigmoid(i) * torch.tanh(g)
+            h = torch.sigmoid(o) * torch.tanh(c)
+        return torch.cat([h, c], dim=-1), op_emb.new_zeros(())
+
+
 class EtzCell(nn.Module):
     """Kabbalistic cell. 10 Sefirot: S0=operator, S1..SK=children, the rest are learned
     'scratch' registers (NOT a copy of the input). The result is read from Malchut (slot 9).
     Reuses EtzChaimFractalAI as is."""
-    def __init__(self, d, K, num_worlds, tzimtzum, intent_weight=0.1, weight_mode='hyper', tzimtzum_mode='fixed'):
+    def __init__(self, d, K, num_worlds, tzimtzum, intent_weight=0.1, weight_mode='hyper', tzimtzum_mode='fixed',
+                 hyper_init='default'):
         super().__init__()
         assert 1 + K <= 9, "the Malchut slot (9) must stay free for the output"
         self.d, self.K, self.intent_weight = d, K, intent_weight
         self.core = EtzChaimFractalAI(d_model=d, num_worlds=num_worlds, tzimtzum_active=tzimtzum,
-                                      weight_mode=weight_mode, tzimtzum_mode=tzimtzum_mode)
+                                      weight_mode=weight_mode, tzimtzum_mode=tzimtzum_mode,
+                                      hyper_init=hyper_init)
         self.num_scratch = 10 - 1 - K              # remaining slots -> working registers
         self.scratch = nn.Parameter(torch.randn(self.num_scratch, d) * 0.02)
 

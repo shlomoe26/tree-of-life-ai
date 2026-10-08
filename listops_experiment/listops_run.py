@@ -26,7 +26,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from listops_data import make_dataset, dataset_stats, NUM_DIGITS, OP_TO_ID, OPS
-from listops_model import (VanillaCell, EtzCell, HistogramCell, MultiStatCell, GRCFoldCell,
+from listops_model import (VanillaCell, EtzCell, HistogramCell, MultiStatCell, GRCFoldCell, LSTMFoldCell,
                            LinearCell, ResidualCell, SetAggCell, RecursiveTreeModel,
                            count_params, find_vanilla_hidden, find_hidden)
 
@@ -46,8 +46,24 @@ def accuracy(model, trees, device, chunk=128):
     return correct / total
 
 
+@torch.no_grad()
+def accuracy_by_root_op(model, trees, device, chunk=128):
+    """Accuracy on `trees`, split by the operator at the root (keys 'in_SM', 'in_MED', ...)."""
+    model.eval()
+    hit, tot = {}, {}
+    for i in range(0, len(trees), chunk):
+        batch = trees[i:i + chunk]
+        pred = model(batch, device)[0].argmax(-1).tolist()
+        for t, p in zip(batch, pred):
+            name = "in_" + OPS[t.op_id]
+            tot[name] = tot.get(name, 0) + 1
+            hit[name] = hit.get(name, 0) + int(p == t.value)
+    model.train()
+    return {k: hit[k] / tot[k] for k in sorted(tot)}
+
+
 def train_model(model, train_trees, eval_sets, device, iters, batch, lr, log_every, sample_seed,
-                cosine=False, warmup=200):
+                cosine=False, warmup=200, clip=0.0):
     model.to(device).train()
     rng = random.Random(sample_seed)
     opt = torch.optim.AdamW(model.parameters(), lr=lr)
@@ -68,6 +84,8 @@ def train_model(model, train_trees, eval_sets, device, iters, batch, lr, log_eve
         loss = F.cross_entropy(logits, gold) + intent      # intent is already weighted; 0 for non-Etz cells
         opt.zero_grad(set_to_none=True)
         loss.backward()
+        if clip > 0:
+            torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
         opt.step()
         if sched is not None:
             sched.step()
@@ -106,6 +124,11 @@ def make_model(kind, args, target_params=None):
         return RecursiveTreeModel(d, EtzCell(d, K, num_worlds=4, tzimtzum=True, weight_mode='direct')), {}
     if kind == "Etz1_direct":   # 1 world, direct weights
         return RecursiveTreeModel(d, EtzCell(d, K, num_worlds=1, tzimtzum=False, weight_mode='direct')), {}
+    if kind == "Etz4_hinit":    # hypernet with calibrated initialisation (generated weights at the 'direct' scale)
+        return RecursiveTreeModel(d, EtzCell(d, K, num_worlds=4, tzimtzum=True, hyper_init='calibrated')), {}
+    if kind == "LSTMFold":      # binary Tree-LSTM-style fold with a memory cell, equal budget
+        hidden = find_hidden(lambda h: LSTMFoldCell(d, h), target_params) if target_params else args.vanilla_hidden
+        return RecursiveTreeModel(d, LSTMFoldCell(d, hidden)), {"hidden": hidden}
     if kind == "Etz4_gated":    # ablation: Tzimtzum with a learned gate
         return RecursiveTreeModel(d, EtzCell(d, K, num_worlds=4, tzimtzum=True, tzimtzum_mode='gated')), {}
     if kind == "Hist":          # compact histogram cell (predicted to win; it did not)
@@ -158,6 +181,8 @@ def main():
     ap.add_argument("--warmup", type=int, default=200)
     ap.add_argument("--data_seed", type=int, default=1234)
     ap.add_argument("--vanilla_hidden", type=int, default=512)
+    ap.add_argument("--per_op", action="store_true", help="also store in-distribution accuracy per root operator")
+    ap.add_argument("--clip", type=float, default=0.0, help="gradient-norm clipping (0 = off, as in all stored runs)")
     ap.add_argument("--out", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "results.jsonl"))
     args = ap.parse_args()
 
@@ -240,17 +265,22 @@ def main():
                     results[kind][name].append(v)
                 continue
             torch.manual_seed(seed)
-            budget_kinds = {"R0", "MultiStat", "GRC", "R0_resid", "MultiStat_resid"}
+            budget_kinds = {"R0", "MultiStat", "GRC", "LSTMFold", "R0_resid", "MultiStat_resid"}
             wants_budget = kind in budget_kinds or kind.startswith("SAA")
             model, info = make_model(kind, args, target_params=target if wants_budget else None)
             tag = kind + (f"(h={info.get('hidden')})" if wants_budget else "")
             print(f"\n--- {tag} | params={count_params(model):,} | seed={seed} ---", flush=True)
             res = train_model(model, train_trees, eval_sets, device,
                               args.iters, args.batch, args.lr, args.log_every, sample_seed=seed,
-                              cosine=args.cosine, warmup=args.warmup)
+                              cosine=args.cosine, warmup=args.warmup, clip=args.clip)
+            if args.per_op:
+                per_op = accuracy_by_root_op(model, eval_sets["in"], device)
+                print("    per root operator: " + " ".join(f"{k} {v:.3f}" for k, v in per_op.items()), flush=True)
             with open(args.out, "a") as f:
-                f.write(json.dumps({"seed": seed, "kind": kind,
-                                    "params": count_params(model), "acc": res}) + "\n")
+                row = {"seed": seed, "kind": kind, "params": count_params(model), "acc": res}
+                if args.per_op:
+                    row["per_op"] = per_op
+                f.write(json.dumps(row) + "\n")
             for name, v in res.items():
                 results[kind][name].append(v)
             del model

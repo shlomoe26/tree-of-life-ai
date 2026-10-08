@@ -35,3 +35,22 @@ class FractalHyperNet(nn.Module):
         weights_flat = self.weight_generator(emb)
 
         return weights_flat.view(self.base_dim, self.base_dim)
+
+    @torch.no_grad()
+    def generated_std(self, n_worlds: int, n_sefirot: int = 10) -> float:
+        """Standard deviation of all generated weights over every (world, sefirah) position."""
+        ws = torch.stack([self.forward(w, s) for w in range(n_worlds) for s in range(n_sefirot)])
+        return ws.std().item()
+
+    @torch.no_grad()
+    def calibrate_init(self, n_worlds: int, n_sefirot: int = 10) -> float:
+        """Rescale the output layer so that the generated weights start at the scale a directly
+        parameterised layer would have (std = base_dim ** -0.5, the init of the 'direct' ablation).
+        This targets the same quantity as the hyperfan-in initialisation of Chang et al. (2020),
+        but by empirical calibration rather than their analytic formula. Returns the scale applied."""
+        target = self.base_dim ** -0.5
+        scale = target / self.generated_std(n_worlds, n_sefirot)
+        out = self.weight_generator[-1]
+        out.weight.mul_(scale)
+        out.bias.mul_(scale)
+        return scale

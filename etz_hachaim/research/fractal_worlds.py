@@ -57,7 +57,7 @@ class EtzChaimFractalAI(nn.Module):
     (num_worlds, tzimtzum_active, weight_mode, tzimtzum_mode).
     """
     def __init__(self, d_model: int = 64, num_worlds: int = 4, tzimtzum_active: bool = True,
-                 weight_mode: str = 'hyper', tzimtzum_mode: str = 'fixed'):
+                 weight_mode: str = 'hyper', tzimtzum_mode: str = 'fixed', hyper_init: str = 'default'):
         super().__init__()
         self.d_model = d_model
         self.num_worlds = num_worlds
@@ -66,6 +66,9 @@ class EtzChaimFractalAI(nn.Module):
 
         # The central "genome" (useless in 'direct' mode: it is not created, for a clean ablation)
         self.hypernet = None if weight_mode == 'direct' else FractalHyperNet(base_dim=self.d_model, n_worlds=num_worlds)
+        # hyper_init='calibrated': start the generated weights at the scale of the 'direct' ablation
+        if self.hypernet is not None and hyper_init == 'calibrated':
+            self.hypernet.calibrate_init(num_worlds)
 
         # The Worlds (Atzilut, Beriah, Yetzirah, Assiyah)
         self.worlds = nn.ModuleList([
