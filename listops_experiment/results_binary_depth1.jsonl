@@ -1,0 +1,12 @@
+{"seed": 0, "kind": "GRC", "params": 208418, "acc": {"in": 0.565, "ood2": 0.342}, "per_op": {"in_MED": 1.0, "in_SM": 0.11764705882352941}}
+{"seed": 0, "kind": "LSTMFold", "params": 207034, "acc": {"in": 0.559, "ood2": 0.341}, "per_op": {"in_MED": 1.0, "in_SM": 0.10547667342799188}}
+{"seed": 0, "kind": "R0", "params": 208682, "acc": {"in": 1.0, "ood2": 0.127}, "per_op": {"in_MED": 1.0, "in_SM": 1.0}}
+{"seed": 0, "kind": "SAA_h4", "params": 212698, "acc": {"in": 0.997, "ood2": 0.095}, "per_op": {"in_MED": 1.0, "in_SM": 0.9939148073022313}}
+{"seed": 1, "kind": "GRC", "params": 208418, "acc": {"in": 0.561, "ood2": 0.355}, "per_op": {"in_MED": 1.0, "in_SM": 0.10953346855983773}}
+{"seed": 1, "kind": "LSTMFold", "params": 207034, "acc": {"in": 0.548, "ood2": 0.346}, "per_op": {"in_MED": 1.0, "in_SM": 0.08316430020283976}}
+{"seed": 1, "kind": "R0", "params": 208682, "acc": {"in": 0.999, "ood2": 0.157}, "per_op": {"in_MED": 1.0, "in_SM": 0.9979716024340771}}
+{"seed": 1, "kind": "SAA_h4", "params": 212698, "acc": {"in": 0.998, "ood2": 0.111}, "per_op": {"in_MED": 1.0, "in_SM": 0.9959432048681541}}
+{"seed": 2, "kind": "GRC", "params": 208418, "acc": {"in": 0.553, "ood2": 0.345}, "per_op": {"in_MED": 1.0, "in_SM": 0.09330628803245436}}
+{"seed": 2, "kind": "LSTMFold", "params": 207034, "acc": {"in": 0.559, "ood2": 0.336}, "per_op": {"in_MED": 1.0, "in_SM": 0.10547667342799188}}
+{"seed": 2, "kind": "R0", "params": 208682, "acc": {"in": 0.998, "ood2": 0.086}, "per_op": {"in_MED": 1.0, "in_SM": 0.9959432048681541}}
+{"seed": 2, "kind": "SAA_h4", "params": 212698, "acc": {"in": 0.995, "ood2": 0.147}, "per_op": {"in_MED": 1.0, "in_SM": 0.9898580121703854}}

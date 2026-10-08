@@ -1,0 +1,6 @@
+{"seed": 0, "kind": "GRC", "params": 822322, "acc": {"in": 0.554, "ood2": 0.35}, "per_op": {"in_MED": 1.0, "in_SM": 0.09533468559837728}}
+{"seed": 0, "kind": "LSTMFold", "params": 819042, "acc": {"in": 0.579, "ood2": 0.378}, "per_op": {"in_MED": 1.0, "in_SM": 0.1460446247464503}}
+{"seed": 1, "kind": "GRC", "params": 822322, "acc": {"in": 0.552, "ood2": 0.331}, "per_op": {"in_MED": 1.0, "in_SM": 0.09127789046653144}}
+{"seed": 1, "kind": "LSTMFold", "params": 819042, "acc": {"in": 0.553, "ood2": 0.355}, "per_op": {"in_MED": 1.0, "in_SM": 0.09330628803245436}}
+{"seed": 2, "kind": "GRC", "params": 822322, "acc": {"in": 0.557, "ood2": 0.367}, "per_op": {"in_MED": 1.0, "in_SM": 0.10141987829614604}}
+{"seed": 2, "kind": "LSTMFold", "params": 819042, "acc": {"in": 0.562, "ood2": 0.338}, "per_op": {"in_MED": 1.0, "in_SM": 0.11156186612576065}}

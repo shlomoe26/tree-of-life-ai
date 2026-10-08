@@ -94,3 +94,42 @@ ablation): Etz4 (control) × 2 seeds, Etz4_hinit × 3 seeds, Etz4_direct (contro
 Outputs: `results_binary_depth1.jsonl`, `results_binary_depth1_d128.jsonl`,
 `results_binary_full.jsonl` (d = 64), `results_binary_full_d128.jsonl`, `results_binary_long.jsonl`,
 `results_hypernet_init.jsonl`.
+
+---
+
+## Amendment 1 (2026-10-08, about three hours after the first launch)
+
+**What went wrong.** The first launch used the scripts' default `--batch 32` and `--p_deep 0.3`.
+The session logs of the original runs show that phases 5 to 9 used `--batch 64 --p_deep 0.2` (with
+`--n_train 15000 --n_test 1000` at 3,000 iterations). The command lines in the README, reconstructed
+from the plans, had the same omission. The controls of experiment B exposed it: Etz4 = 0.402 (stored
+seed 0: 0.498) and Etz4_direct = 0.367 (stored seed 0: 0.656). By the reading grid, B was void.
+
+**What is kept.**
+- The depth-1 runs (`results_binary_depth1.jsonl`, `results_binary_depth1_d128.jsonl`) are kept:
+  `p_deep` has no effect at depth 1, and the controls passed (R0 0.999, SAA_h4 0.997). One deviation
+  from the plan in those runs: at d = 128 the models have about 820k parameters, not 208k, because
+  the budget reference grows with d. They are therefore **not** at equal budget.
+- The six runs finished in the wrong regime are kept under explicit names and will be reported as
+  such, not mixed with the rest: `results_binary_full_b32.jsonl`, `results_binary_full_d128_b32.jsonl`,
+  `results_hypernet_init_b32.jsonl`.
+
+**What was already seen when this amendment was written** (so the rest is not blind):
+- depth 1, 3 seeds each: both binary cells reach MED 1.000 and SM 0.10-0.12 (chance) at d = 64 and
+  d = 128; the controls learn both. Second row of grid A, and the missed operator is SM.
+- wrong-regime full task: LSTMFold 0.417 (MED 0.72, SM 0.10); GRC d = 128 0.408 (MED 0.72, SM 0.08).
+- wrong-regime B, seed 0: Etz4_hinit 0.405, Etz4 0.402, Etz4_direct 0.367; all three have SM at
+  chance (0.09-0.11).
+
+**Revised runs** (all with `--batch 64 --p_deep 0.2`; shortened because each run now costs twice as
+much and the depth-1 result already answers A1-A4):
+- A-long-d1 (replaces A-long): depth 1, **30,000** iterations, GRC and LSTMFold, d = 64, 2 seeds.
+  Question A5 in its cheapest form: does a fold ever learn SM with much more training?
+  → `results_binary_depth1_long.jsonl`
+- A-full: depths 1-4, 10,000 iterations, 50,000 examples, GRC and LSTMFold, d = 64, 1 seed each,
+  with the per-operator split. → `results_binary_full.jsonl`. The d = 128 full-task runs are dropped.
+- B: Etz4_hinit seeds 0 and 1, Etz4 seed 0, Etz4_direct seed 0 → `results_hypernet_init.jsonl`.
+
+The reading grids are unchanged. One added line for A-long-d1: SM ≥ 0.9 after 30,000 iterations
+means the folds were under-trained on SM; SM still at chance means training length is not the issue
+at this scale.
