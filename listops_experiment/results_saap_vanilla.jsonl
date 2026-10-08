@@ -1,0 +1,3 @@
+{"seed": 0, "kind": "free", "params": 182730, "acc": {"in": 0.659, "ood5": 0.325, "ood7": 0.274, "ood9": 0.282, "in_tf": 0.659}}
+{"seed": 1, "kind": "free", "params": 182730, "acc": {"in": 0.624, "ood5": 0.271, "ood7": 0.256, "ood9": 0.255, "in_tf": 0.624}}
+{"seed": 2, "kind": "free", "params": 182730, "acc": {"in": 0.62, "ood5": 0.323, "ood7": 0.271, "ood9": 0.271, "in_tf": 0.62}}

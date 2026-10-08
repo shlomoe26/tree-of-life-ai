@@ -1,0 +1,6 @@
+{"seed": 0, "kind": "sup", "params": 191690, "acc": {"in": 0.932, "ood5": 0.896, "ood7": 0.908, "ood9": 0.921, "in_tf": 0.932}}
+{"seed": 0, "kind": "curr", "params": 191690, "acc": {"in": 0.933, "ood5": 0.899, "ood7": 0.905, "ood9": 0.913, "in_tf": 0.933}}
+{"seed": 1, "kind": "sup", "params": 191690, "acc": {"in": 0.923, "ood5": 0.88, "ood7": 0.897, "ood9": 0.909, "in_tf": 0.923}}
+{"seed": 1, "kind": "curr", "params": 191690, "acc": {"in": 0.937, "ood5": 0.876, "ood7": 0.9, "ood9": 0.915, "in_tf": 0.937}}
+{"seed": 2, "kind": "sup", "params": 191690, "acc": {"in": 0.932, "ood5": 0.897, "ood7": 0.907, "ood9": 0.93, "in_tf": 0.932}}
+{"seed": 2, "kind": "curr", "params": 191690, "acc": {"in": 0.928, "ood5": 0.901, "ood7": 0.901, "ood9": 0.918, "in_tf": 0.928}}

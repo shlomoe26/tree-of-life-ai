@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="Segoe UI, Arial, sans-serif" role="img" aria-label="Flat sequences: binary merging plateaus near 0.45; K-ary groups + curriculum reach 0.91">
+<rect width="940" height="520" fill="#fcfcfb"/>
+<text x="60" y="30" font-size="18" font-weight="600" fill="#0b0b0b">Flat sequences: binary merging plateaus near 0.45; K-ary groups + curriculum reach 0.91</text>
+<text x="60" y="52" font-size="13" fill="#52514e">Hard variant (SM + MED), no tree given, ~190-215k parameters, with positional embeddings. Free parsing at test time.</text>
+<rect x="60" y="66" width="12" height="12" rx="2" fill="#2a78d6"/><text x="78" y="77" font-size="12" fill="#52514e">in distribution (depths 1-4)</text>
+<rect x="290" y="66" width="12" height="12" rx="2" fill="#eb6834"/><text x="308" y="77" font-size="12" fill="#52514e">out of distribution (depth 9)</text>
+<line x1="60" y1="400.0" x2="910" y2="400.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="404.0" text-anchor="end" font-size="11" fill="#8a8983">0.00</text>
+<line x1="60" y1="325.0" x2="910" y2="325.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="329.0" text-anchor="end" font-size="11" fill="#8a8983">0.25</text>
+<line x1="60" y1="250.0" x2="910" y2="250.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="254.0" text-anchor="end" font-size="11" fill="#8a8983">0.50</text>
+<line x1="60" y1="175.0" x2="910" y2="175.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="179.0" text-anchor="end" font-size="11" fill="#8a8983">0.75</text>
+<line x1="60" y1="100.0" x2="910" y2="100.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="104.0" text-anchor="end" font-size="11" fill="#8a8983">1.00</text>
+<path d="M76.8,400 V278.0 Q76.8,274.0 80.8,274.0 H108.8 Q112.8,274.0 112.8,278.0 V400 Z" fill="#2a78d6"><title>Binary merges - fixed left-to-right - in distribution: 0.420</title></path><text x="94.8" y="268.0" text-anchor="middle" font-size="11" fill="#0b0b0b">0.420</text>
+<path d="M114.8,400 V328.1 Q114.8,324.1 118.8,324.1 H146.8 Q150.8,324.1 150.8,328.1 V400 Z" fill="#eb6834"><title>Binary merges - fixed left-to-right - out of distribution: 0.253</title></path><text x="132.8" y="318.1" text-anchor="middle" font-size="11" fill="#0b0b0b">0.253</text>
+<text x="113.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">fixed</text>
+<text x="113.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">left-to-right</text>
+<path d="M174.2,400 V263.2 Q174.2,259.2 178.2,259.2 H206.2 Q210.2,259.2 210.2,263.2 V400 Z" fill="#2a78d6"><title>Binary merges - greedy ST - in distribution: 0.469</title></path><text x="192.2" y="253.2" text-anchor="middle" font-size="11" fill="#0b0b0b">0.469</text>
+<path d="M212.2,400 V307.6 Q212.2,303.6 216.2,303.6 H244.2 Q248.2,303.6 248.2,307.6 V400 Z" fill="#eb6834"><title>Binary merges - greedy ST - out of distribution: 0.321</title></path><text x="230.2" y="297.6" text-anchor="middle" font-size="11" fill="#0b0b0b">0.321</text>
+<text x="211.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">greedy</text>
+<text x="211.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">ST</text>
+<path d="M271.8,400 V273.1 Q271.8,269.1 275.8,269.1 H303.8 Q307.8,269.1 307.8,273.1 V400 Z" fill="#2a78d6"><title>Binary merges - Gumbel + annealing - in distribution: 0.436</title></path><text x="289.8" y="263.1" text-anchor="middle" font-size="11" fill="#0b0b0b">0.436</text>
+<path d="M309.8,400 V310.6 Q309.8,306.6 313.8,306.6 H341.8 Q345.8,306.6 345.8,310.6 V400 Z" fill="#eb6834"><title>Binary merges - Gumbel + annealing - out of distribution: 0.311</title></path><text x="327.8" y="300.6" text-anchor="middle" font-size="11" fill="#0b0b0b">0.311</text>
+<text x="308.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Gumbel</text>
+<text x="308.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">+ annealing</text>
+<path d="M369.2,400 V280.6 Q369.2,276.6 373.2,276.6 H401.2 Q405.2,276.6 405.2,280.6 V400 Z" fill="#2a78d6"><title>Binary merges - supervised structure - in distribution: 0.411</title></path><text x="387.2" y="270.6" text-anchor="middle" font-size="11" fill="#0b0b0b">0.411</text>
+<path d="M407.2,400 V356.9 Q407.2,352.9 411.2,352.9 H439.2 Q443.2,352.9 443.2,356.9 V400 Z" fill="#eb6834"><title>Binary merges - supervised structure - out of distribution: 0.157</title></path><text x="425.2" y="346.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.157</text>
+<text x="406.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">supervised</text>
+<text x="406.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">structure</text>
+<line x1="76.75" y1="444" x2="443.25" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="260.0" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">Binary merges</text>
+<path d="M496.8,400 V213.7 Q496.8,209.7 500.8,209.7 H528.8 Q532.8,209.7 532.8,213.7 V400 Z" fill="#2a78d6"><title>K-ary, no structure signal - mean-pool composer - in distribution: 0.634</title></path><text x="514.8" y="203.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.634</text>
+<path d="M534.8,400 V323.2 Q534.8,319.2 538.8,319.2 H566.8 Q570.8,319.2 570.8,323.2 V400 Z" fill="#eb6834"><title>K-ary, no structure signal - mean-pool composer - out of distribution: 0.269</title></path><text x="552.8" y="313.2" text-anchor="middle" font-size="11" fill="#0b0b0b">0.269</text>
+<text x="533.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">mean-pool</text>
+<text x="533.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">composer</text>
+<path d="M594.2,400 V206.0 Q594.2,202.0 598.2,202.0 H626.2 Q630.2,202.0 630.2,206.0 V400 Z" fill="#2a78d6"><title>K-ary, no structure signal - SAA composer - in distribution: 0.660</title></path><text x="612.2" y="196.0" text-anchor="middle" font-size="11" fill="#0b0b0b">0.660</text>
+<path d="M632.2,400 V320.7 Q632.2,316.7 636.2,316.7 H664.2 Q668.2,316.7 668.2,320.7 V400 Z" fill="#eb6834"><title>K-ary, no structure signal - SAA composer - out of distribution: 0.278</title></path><text x="650.2" y="310.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.278</text>
+<text x="631.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">SAA</text>
+<text x="631.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">composer</text>
+<line x1="496.75" y1="444" x2="668.25" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="582.5" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">K-ary, no structure signal</text>
+<path d="M721.8,400 V131.4 Q721.8,127.4 725.8,127.4 H753.8 Q757.8,127.4 757.8,131.4 V400 Z" fill="#2a78d6"><title>K-ary, structure-supervised - curriculum - in distribution: 0.909</title></path><text x="739.8" y="121.4" text-anchor="middle" font-size="11" fill="#0b0b0b">0.909</text>
+<path d="M759.8,400 V266.2 Q759.8,262.2 763.8,262.2 H791.8 Q795.8,262.2 795.8,266.2 V400 Z" fill="#eb6834"><title>K-ary, structure-supervised - curriculum - out of distribution: 0.459</title></path><text x="777.8" y="256.2" text-anchor="middle" font-size="11" fill="#0b0b0b">0.459</text>
+<text x="758.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">curriculum</text>
+<text x="758.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<path d="M819.2,400 V126.5 Q819.2,122.5 823.2,122.5 H851.2 Q855.2,122.5 855.2,126.5 V400 Z" fill="#2a78d6"><title>K-ary, structure-supervised - teacher forcing - in distribution: 0.925</title></path><text x="837.2" y="116.5" text-anchor="middle" font-size="11" fill="#0b0b0b">0.925</text>
+<path d="M857.2,400 V273.5 Q857.2,269.5 861.2,269.5 H889.2 Q893.2,269.5 893.2,273.5 V400 Z" fill="#eb6834"><title>K-ary, structure-supervised - teacher forcing - out of distribution: 0.435</title></path><text x="875.2" y="263.5" text-anchor="middle" font-size="11" fill="#0b0b0b">0.435</text>
+<text x="856.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">teacher</text>
+<text x="856.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">forcing</text>
+<line x1="721.75" y1="444" x2="893.25" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="807.5" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">K-ary, structure-supervised</text>
+<line x1="60" y1="400" x2="910" y2="400" stroke="#52514e" stroke-width="1"/>
+<text x="60" y="506" font-size="11" fill="#8a8983">Data: results_parser, results_gumbel, results_sup_w10, results_saap_vanilla, results_saaparser, results_saap_curr (.jsonl). Left-to-right: 2 seeds.</text>
+</svg>

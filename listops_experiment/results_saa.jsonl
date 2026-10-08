@@ -1,0 +1,12 @@
+{"seed": 0, "kind": "SAA_h2", "params": 209898, "acc": {"in": 0.984, "ood5": 0.971, "ood7": 0.961, "ood9": 0.968}}
+{"seed": 0, "kind": "SAA_h4", "params": 212570, "acc": {"in": 0.99, "ood5": 0.965, "ood7": 0.973, "ood9": 0.972}}
+{"seed": 0, "kind": "SAA_h8", "params": 214234, "acc": {"in": 0.982, "ood5": 0.965, "ood7": 0.967, "ood9": 0.971}}
+{"seed": 0, "kind": "SAA_hybrid", "params": 208074, "acc": {"in": 0.969, "ood5": 0.928, "ood7": 0.912, "ood9": 0.934}}
+{"seed": 1, "kind": "SAA_h2", "params": 209898, "acc": {"in": 0.987, "ood5": 0.975, "ood7": 0.953, "ood9": 0.967}}
+{"seed": 1, "kind": "SAA_h4", "params": 212570, "acc": {"in": 0.988, "ood5": 0.969, "ood7": 0.96, "ood9": 0.97}}
+{"seed": 1, "kind": "SAA_h8", "params": 214234, "acc": {"in": 0.989, "ood5": 0.97, "ood7": 0.966, "ood9": 0.966}}
+{"seed": 1, "kind": "SAA_hybrid", "params": 208074, "acc": {"in": 0.974, "ood5": 0.96, "ood7": 0.935, "ood9": 0.95}}
+{"seed": 2, "kind": "SAA_h2", "params": 209898, "acc": {"in": 0.986, "ood5": 0.963, "ood7": 0.945, "ood9": 0.962}}
+{"seed": 2, "kind": "SAA_h4", "params": 212570, "acc": {"in": 0.985, "ood5": 0.97, "ood7": 0.963, "ood9": 0.971}}
+{"seed": 2, "kind": "SAA_h8", "params": 214234, "acc": {"in": 0.984, "ood5": 0.971, "ood7": 0.969, "ood9": 0.971}}
+{"seed": 2, "kind": "SAA_hybrid", "params": 208074, "acc": {"in": 0.966, "ood5": 0.922, "ood7": 0.903, "ood9": 0.932}}

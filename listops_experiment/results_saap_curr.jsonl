@@ -1,0 +1,3 @@
+{"seed": 0, "kind": "curr", "params": 191562, "acc": {"in": 0.913, "ood5": 0.675, "ood7": 0.545, "ood9": 0.517, "in_tf": 0.913}}
+{"seed": 1, "kind": "curr", "params": 191562, "acc": {"in": 0.927, "ood5": 0.664, "ood7": 0.495, "ood9": 0.43, "in_tf": 0.927}}
+{"seed": 2, "kind": "curr", "params": 191562, "acc": {"in": 0.886, "ood5": 0.602, "ood7": 0.473, "ood9": 0.431, "in_tf": 0.912}}

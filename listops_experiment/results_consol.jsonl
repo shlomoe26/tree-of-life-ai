@@ -1,0 +1,4 @@
+{"seed": 0, "kind": "Etz4", "params": 1110938, "acc": {"in": 0.467, "ood5": 0.398, "ood7": 0.383, "ood9": 0.415}}
+{"seed": 0, "kind": "Hist_big", "params": 218260, "acc": {"in": 0.474, "ood5": 0.413, "ood7": 0.384, "ood9": 0.42}}
+{"seed": 1, "kind": "Etz4", "params": 1110938, "acc": {"in": 0.47, "ood5": 0.392, "ood7": 0.385, "ood9": 0.415}}
+{"seed": 1, "kind": "Hist_big", "params": 218260, "acc": {"in": 0.56, "ood5": 0.45, "ood7": 0.441, "ood9": 0.494}}

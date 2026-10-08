@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="Segoe UI, Arial, sans-serif" role="img" aria-label="Tree given: learned aggregation beats fixed pooling; rigid cells stay near 0.4-0.5">
+<rect width="940" height="520" fill="#fcfcfb"/>
+<text x="60" y="30" font-size="18" font-weight="600" fill="#0b0b0b">Tree given: learned aggregation beats fixed pooling; rigid cells stay near 0.4-0.5</text>
+<text x="60" y="52" font-size="13" fill="#52514e">Hard variant, gold tree, 10,000 iterations + cosine + 50,000 examples, ~208k parameters unless noted.</text>
+<rect x="60" y="66" width="12" height="12" rx="2" fill="#2a78d6"/><text x="78" y="77" font-size="12" fill="#52514e">in distribution (depths 1-4)</text>
+<rect x="290" y="66" width="12" height="12" rx="2" fill="#eb6834"/><text x="308" y="77" font-size="12" fill="#52514e">out of distribution (depth 9)</text>
+<line x1="60" y1="400.0" x2="910" y2="400.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="404.0" text-anchor="end" font-size="11" fill="#8a8983">0.00</text>
+<line x1="60" y1="325.0" x2="910" y2="325.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="329.0" text-anchor="end" font-size="11" fill="#8a8983">0.25</text>
+<line x1="60" y1="250.0" x2="910" y2="250.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="254.0" text-anchor="end" font-size="11" fill="#8a8983">0.50</text>
+<line x1="60" y1="175.0" x2="910" y2="175.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="179.0" text-anchor="end" font-size="11" fill="#8a8983">0.75</text>
+<line x1="60" y1="100.0" x2="910" y2="100.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="104.0" text-anchor="end" font-size="11" fill="#8a8983">1.00</text>
+<path d="M76.8,400 V290.6 Q76.8,286.6 80.8,286.6 H108.8 Q112.8,286.6 112.8,290.6 V400 Z" fill="#2a78d6"><title>Rigid / structured - Linear 9.8k - in distribution: 0.378</title></path><text x="94.8" y="280.6" text-anchor="middle" font-size="11" fill="#0b0b0b">0.378</text>
+<path d="M114.8,400 V303.5 Q114.8,299.5 118.8,299.5 H146.8 Q150.8,299.5 150.8,303.5 V400 Z" fill="#eb6834"><title>Rigid / structured - Linear 9.8k - out of distribution: 0.335</title></path><text x="132.8" y="293.5" text-anchor="middle" font-size="11" fill="#0b0b0b">0.335</text>
+<text x="113.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Linear</text>
+<text x="113.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">9.8k</text>
+<path d="M174.2,400 V267.2 Q174.2,263.2 178.2,263.2 H206.2 Q210.2,263.2 210.2,267.2 V400 Z" fill="#2a78d6"><title>Rigid / structured - GRC fold - in distribution: 0.456</title></path><text x="192.2" y="257.2" text-anchor="middle" font-size="11" fill="#0b0b0b">0.456</text>
+<path d="M212.2,400 V286.9 Q212.2,282.9 216.2,282.9 H244.2 Q248.2,282.9 248.2,286.9 V400 Z" fill="#eb6834"><title>Rigid / structured - GRC fold - out of distribution: 0.391</title></path><text x="230.2" y="276.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.391</text>
+<text x="211.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">GRC fold</text>
+<text x="211.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<path d="M271.8,400 V263.4 Q271.8,259.4 275.8,259.4 H303.8 Q307.8,259.4 307.8,263.4 V400 Z" fill="#2a78d6"><title>Rigid / structured - Etz 4 worlds 1.11M - in distribution: 0.469</title></path><text x="289.8" y="253.4" text-anchor="middle" font-size="11" fill="#0b0b0b">0.469</text>
+<path d="M309.8,400 V279.5 Q309.8,275.5 313.8,275.5 H341.8 Q345.8,275.5 345.8,279.5 V400 Z" fill="#eb6834"><title>Rigid / structured - Etz 4 worlds 1.11M - out of distribution: 0.415</title></path><text x="327.8" y="269.5" text-anchor="middle" font-size="11" fill="#0b0b0b">0.415</text>
+<text x="308.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Etz 4 worlds</text>
+<text x="308.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">1.11M</text>
+<path d="M369.2,400 V248.9 Q369.2,244.9 373.2,244.9 H401.2 Q405.2,244.9 405.2,248.9 V400 Z" fill="#2a78d6"><title>Rigid / structured - Histogram - in distribution: 0.517</title></path><text x="387.2" y="238.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.517</text>
+<path d="M407.2,400 V266.9 Q407.2,262.9 411.2,262.9 H439.2 Q443.2,262.9 443.2,266.9 V400 Z" fill="#eb6834"><title>Rigid / structured - Histogram - out of distribution: 0.457</title></path><text x="425.2" y="256.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.457</text>
+<text x="406.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Histogram</text>
+<text x="406.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<line x1="76.75" y1="444" x2="443.25" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="260.0" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">Rigid / structured</text>
+<path d="M496.8,400 V118.8 Q496.8,114.8 500.8,114.8 H528.8 Q532.8,114.8 532.8,118.8 V400 Z" fill="#2a78d6"><title>Soft, fixed pooling - R0 mean - in distribution: 0.951</title></path><text x="514.8" y="108.8" text-anchor="middle" font-size="11" fill="#0b0b0b">0.951</text>
+<path d="M534.8,400 V138.7 Q534.8,134.7 538.8,134.7 H566.8 Q570.8,134.7 570.8,138.7 V400 Z" fill="#eb6834"><title>Soft, fixed pooling - R0 mean - out of distribution: 0.884</title></path><text x="552.8" y="128.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.884</text>
+<text x="533.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">R0</text>
+<text x="533.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">mean</text>
+<path d="M594.2,400 V116.4 Q594.2,112.4 598.2,112.4 H626.2 Q630.2,112.4 630.2,116.4 V400 Z" fill="#2a78d6"><title>Soft, fixed pooling - MultiStat mean;max;min - in distribution: 0.959</title></path><text x="612.2" y="106.4" text-anchor="middle" font-size="11" fill="#0b0b0b">0.959</text>
+<path d="M632.2,400 V130.6 Q632.2,126.6 636.2,126.6 H664.2 Q668.2,126.6 668.2,130.6 V400 Z" fill="#eb6834"><title>Soft, fixed pooling - MultiStat mean;max;min - out of distribution: 0.911</title></path><text x="650.2" y="120.6" text-anchor="middle" font-size="11" fill="#0b0b0b">0.911</text>
+<text x="631.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">MultiStat</text>
+<text x="631.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">mean;max;min</text>
+<line x1="496.75" y1="444" x2="668.25" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="582.5" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">Soft, fixed pooling</text>
+<path d="M721.8,400 V113.1 Q721.8,109.1 725.8,109.1 H753.8 Q757.8,109.1 757.8,113.1 V400 Z" fill="#2a78d6"><title>Soft, learned - SAA + max/min hybrid - in distribution: 0.970</title></path><text x="739.8" y="103.1" text-anchor="middle" font-size="11" fill="#0b0b0b">0.970</text>
+<path d="M759.8,400 V122.4 Q759.8,118.4 763.8,118.4 H791.8 Q795.8,118.4 795.8,122.4 V400 Z" fill="#eb6834"><title>Soft, learned - SAA + max/min hybrid - out of distribution: 0.939</title></path><text x="777.8" y="112.4" text-anchor="middle" font-size="11" fill="#0b0b0b">0.939</text>
+<text x="758.8" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">SAA + max/min</text>
+<text x="758.8" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">hybrid</text>
+<path d="M819.2,400 V107.7 Q819.2,103.7 823.2,103.7 H851.2 Q855.2,103.7 855.2,107.7 V400 Z" fill="#2a78d6"><title>Soft, learned - SAA 4 heads - in distribution: 0.988</title></path><text x="837.2" y="97.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.988</text>
+<path d="M857.2,400 V112.7 Q857.2,108.7 861.2,108.7 H889.2 Q893.2,108.7 893.2,112.7 V400 Z" fill="#eb6834"><title>Soft, learned - SAA 4 heads - out of distribution: 0.971</title></path><text x="875.2" y="102.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.971</text>
+<text x="856.2" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">SAA</text>
+<text x="856.2" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">4 heads</text>
+<line x1="721.75" y1="444" x2="893.25" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="807.5" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">Soft, learned</text>
+<line x1="60" y1="400" x2="910" y2="400" stroke="#52514e" stroke-width="1"/>
+<text x="60" y="506" font-size="11" fill="#8a8983">Data: results_overnight, results_consol, results_saa (.jsonl). 2 seeds for Linear, GRC, Etz and Histogram; 3 otherwise.</text>
+</svg>

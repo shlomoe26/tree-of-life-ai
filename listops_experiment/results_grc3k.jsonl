@@ -1,0 +1,3 @@
+{"seed": 0, "kind": "GRC", "params": 208290, "acc": {"in": 0.446, "ood5": 0.37, "ood7": 0.365, "ood9": 0.39}}
+{"seed": 1, "kind": "GRC", "params": 208290, "acc": {"in": 0.455, "ood5": 0.374, "ood7": 0.353, "ood9": 0.417}}
+{"seed": 2, "kind": "GRC", "params": 208290, "acc": {"in": 0.45, "ood5": 0.366, "ood7": 0.356, "ood9": 0.404}}

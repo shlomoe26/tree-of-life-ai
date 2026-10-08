@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="Segoe UI, Arial, sans-serif" role="img" aria-label="The 0.79 'ceiling' was under-training: the MLP reaches 0.95, the GRC fold stays put">
+<rect width="940" height="520" fill="#fcfcfb"/>
+<text x="60" y="30" font-size="18" font-weight="600" fill="#0b0b0b">The 0.79 'ceiling' was under-training: the MLP reaches 0.95, the GRC fold stays put</text>
+<text x="60" y="52" font-size="13" fill="#52514e">Hard variant, gold tree, ~208k parameters. 3k = 3,000 iterations; 10k = 10,000 + cosine schedule + 50,000 examples.</text>
+<rect x="60" y="66" width="12" height="12" rx="2" fill="#2a78d6"/><text x="78" y="77" font-size="12" fill="#52514e">in distribution (depths 1-4)</text>
+<rect x="290" y="66" width="12" height="12" rx="2" fill="#eb6834"/><text x="308" y="77" font-size="12" fill="#52514e">out of distribution (depth 9)</text>
+<line x1="60" y1="400.0" x2="910" y2="400.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="404.0" text-anchor="end" font-size="11" fill="#8a8983">0.00</text>
+<line x1="60" y1="325.0" x2="910" y2="325.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="329.0" text-anchor="end" font-size="11" fill="#8a8983">0.25</text>
+<line x1="60" y1="250.0" x2="910" y2="250.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="254.0" text-anchor="end" font-size="11" fill="#8a8983">0.50</text>
+<line x1="60" y1="175.0" x2="910" y2="175.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="179.0" text-anchor="end" font-size="11" fill="#8a8983">0.75</text>
+<line x1="60" y1="100.0" x2="910" y2="100.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="104.0" text-anchor="end" font-size="11" fill="#8a8983">1.00</text>
+<path d="M93.0,400 V169.9 Q93.0,165.9 97.0,165.9 H125.0 Q129.0,165.9 129.0,169.9 V400 Z" fill="#2a78d6"><title>Mean-pool MLP (R0) - 3k - in distribution: 0.780</title></path><text x="111.0" y="159.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.780</text>
+<path d="M131.0,400 V210.7 Q131.0,206.7 135.0,206.7 H163.0 Q167.0,206.7 167.0,210.7 V400 Z" fill="#eb6834"><title>Mean-pool MLP (R0) - 3k - out of distribution: 0.644</title></path><text x="149.0" y="200.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.644</text>
+<text x="130.0" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">3k</text>
+<text x="130.0" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<path d="M223.0,400 V118.8 Q223.0,114.8 227.0,114.8 H255.0 Q259.0,114.8 259.0,118.8 V400 Z" fill="#2a78d6"><title>Mean-pool MLP (R0) - 10k - in distribution: 0.951</title></path><text x="241.0" y="108.8" text-anchor="middle" font-size="11" fill="#0b0b0b">0.951</text>
+<path d="M261.0,400 V138.7 Q261.0,134.7 265.0,134.7 H293.0 Q297.0,134.7 297.0,138.7 V400 Z" fill="#eb6834"><title>Mean-pool MLP (R0) - 10k - out of distribution: 0.884</title></path><text x="279.0" y="128.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.884</text>
+<text x="260.0" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">10k</text>
+<text x="260.0" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<line x1="93.0" y1="444" x2="297.0" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="195.0" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">Mean-pool MLP (R0)</text>
+<path d="M383.0,400 V166.7 Q383.0,162.7 387.0,162.7 H415.0 Q419.0,162.7 419.0,166.7 V400 Z" fill="#2a78d6"><title>[mean ; max ; min] pooling - 3k - in distribution: 0.791</title></path><text x="401.0" y="156.7" text-anchor="middle" font-size="11" fill="#0b0b0b">0.791</text>
+<path d="M421.0,400 V202.9 Q421.0,198.9 425.0,198.9 H453.0 Q457.0,198.9 457.0,202.9 V400 Z" fill="#eb6834"><title>[mean ; max ; min] pooling - 3k - out of distribution: 0.670</title></path><text x="439.0" y="192.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.670</text>
+<text x="420.0" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">3k</text>
+<text x="420.0" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<path d="M513.0,400 V116.4 Q513.0,112.4 517.0,112.4 H545.0 Q549.0,112.4 549.0,116.4 V400 Z" fill="#2a78d6"><title>[mean ; max ; min] pooling - 10k - in distribution: 0.959</title></path><text x="531.0" y="106.4" text-anchor="middle" font-size="11" fill="#0b0b0b">0.959</text>
+<path d="M551.0,400 V130.6 Q551.0,126.6 555.0,126.6 H583.0 Q587.0,126.6 587.0,130.6 V400 Z" fill="#eb6834"><title>[mean ; max ; min] pooling - 10k - out of distribution: 0.911</title></path><text x="569.0" y="120.6" text-anchor="middle" font-size="11" fill="#0b0b0b">0.911</text>
+<text x="550.0" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">10k</text>
+<text x="550.0" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<line x1="383.0" y1="444" x2="587.0" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="485.0" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">[mean ; max ; min] pooling</text>
+<path d="M673.0,400 V268.9 Q673.0,264.9 677.0,264.9 H705.0 Q709.0,264.9 709.0,268.9 V400 Z" fill="#2a78d6"><title>GRC-style binary fold - 3k - in distribution: 0.450</title></path><text x="691.0" y="258.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.450</text>
+<path d="M711.0,400 V282.9 Q711.0,278.9 715.0,278.9 H743.0 Q747.0,278.9 747.0,282.9 V400 Z" fill="#eb6834"><title>GRC-style binary fold - 3k - out of distribution: 0.404</title></path><text x="729.0" y="272.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.404</text>
+<text x="710.0" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">3k</text>
+<text x="710.0" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<path d="M803.0,400 V267.2 Q803.0,263.2 807.0,263.2 H835.0 Q839.0,263.2 839.0,267.2 V400 Z" fill="#2a78d6"><title>GRC-style binary fold - 10k - in distribution: 0.456</title></path><text x="821.0" y="257.2" text-anchor="middle" font-size="11" fill="#0b0b0b">0.456</text>
+<path d="M841.0,400 V286.9 Q841.0,282.9 845.0,282.9 H873.0 Q877.0,282.9 877.0,286.9 V400 Z" fill="#eb6834"><title>GRC-style binary fold - 10k - out of distribution: 0.391</title></path><text x="859.0" y="276.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.391</text>
+<text x="840.0" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">10k</text>
+<text x="840.0" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b"></text>
+<line x1="673.0" y1="444" x2="877.0" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="775.0" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">GRC-style binary fold</text>
+<line x1="60" y1="400" x2="910" y2="400" stroke="#52514e" stroke-width="1"/>
+<text x="60" y="506" font-size="11" fill="#8a8983">Data: results_followup, results_multistat, results_grc3k, results_overnight (.jsonl). GRC at 10k: 2 seeds.</text>
+</svg>

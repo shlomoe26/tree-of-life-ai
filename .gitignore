@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+dataset/input.txt
+my_*.jsonl
+.DS_Store
+Thumbs.db

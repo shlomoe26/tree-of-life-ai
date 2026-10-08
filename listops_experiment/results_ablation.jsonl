@@ -1,0 +1,6 @@
+{"seed": 0, "kind": "Etz4_direct", "params": 205018, "acc": {"in": 0.656, "ood5": 0.479, "ood7": 0.498, "ood9": 0.533}}
+{"seed": 0, "kind": "Etz4_gated", "params": 1110941, "acc": {"in": 0.502, "ood5": 0.393, "ood7": 0.4, "ood9": 0.442}}
+{"seed": 1, "kind": "Etz4_direct", "params": 205018, "acc": {"in": 0.789, "ood5": 0.63, "ood7": 0.625, "ood9": 0.663}}
+{"seed": 1, "kind": "Etz4_gated", "params": 1110941, "acc": {"in": 0.572, "ood5": 0.425, "ood7": 0.439, "ood9": 0.45}}
+{"seed": 2, "kind": "Etz4_direct", "params": 205018, "acc": {"in": 0.812, "ood5": 0.658, "ood7": 0.654, "ood9": 0.692}}
+{"seed": 2, "kind": "Etz4_gated", "params": 1110941, "acc": {"in": 0.437, "ood5": 0.368, "ood7": 0.375, "ood9": 0.383}}

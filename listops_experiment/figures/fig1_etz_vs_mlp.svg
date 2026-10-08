@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="Segoe UI, Arial, sans-serif" role="img" aria-label="Depth helps the Etz once structure is fed in, but a flat MLP still wins">
+<rect width="940" height="520" fill="#fcfcfb"/>
+<text x="60" y="30" font-size="18" font-weight="600" fill="#0b0b0b">Depth helps the Etz once structure is fed in, but a flat MLP still wins</text>
+<text x="60" y="52" font-size="13" fill="#52514e">Recursive cells on the gold tree, ~1.1M parameters each, 3,000 iterations, 3 seeds</text>
+<rect x="60" y="66" width="12" height="12" rx="2" fill="#2a78d6"/><text x="78" y="77" font-size="12" fill="#52514e">in distribution (depths 1-4)</text>
+<rect x="290" y="66" width="12" height="12" rx="2" fill="#eb6834"/><text x="308" y="77" font-size="12" fill="#52514e">deepest out-of-distribution depth tested</text>
+<line x1="60" y1="400.0" x2="910" y2="400.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="404.0" text-anchor="end" font-size="11" fill="#8a8983">0.00</text>
+<line x1="60" y1="325.0" x2="910" y2="325.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="329.0" text-anchor="end" font-size="11" fill="#8a8983">0.25</text>
+<line x1="60" y1="250.0" x2="910" y2="250.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="254.0" text-anchor="end" font-size="11" fill="#8a8983">0.50</text>
+<line x1="60" y1="175.0" x2="910" y2="175.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="179.0" text-anchor="end" font-size="11" fill="#8a8983">0.75</text>
+<line x1="60" y1="100.0" x2="910" y2="100.0" stroke="#e7e6e2" stroke-width="1"/>
+<text x="52" y="104.0" text-anchor="end" font-size="11" fill="#8a8983">1.00</text>
+<path d="M95.5,400 V180.6 Q95.5,176.6 99.5,176.6 H127.5 Q131.5,176.6 131.5,180.6 V400 Z" fill="#2a78d6"><title>All four operators (deepest OOD = depth 7) - R0 flat MLP - in distribution: 0.745</title></path><text x="113.5" y="170.6" text-anchor="middle" font-size="11" fill="#0b0b0b">0.745</text>
+<path d="M133.5,400 V177.0 Q133.5,173.0 137.5,173.0 H165.5 Q169.5,173.0 169.5,177.0 V400 Z" fill="#eb6834"><title>All four operators (deepest OOD = depth 7) - R0 flat MLP - out of distribution: 0.757</title></path><text x="151.5" y="167.0" text-anchor="middle" font-size="11" fill="#0b0b0b">0.757</text>
+<text x="132.5" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">R0</text>
+<text x="132.5" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">flat MLP</text>
+<path d="M230.5,400 V243.1 Q230.5,239.1 234.5,239.1 H262.5 Q266.5,239.1 266.5,243.1 V400 Z" fill="#2a78d6"><title>All four operators (deepest OOD = depth 7) - Etz 1 world - in distribution: 0.536</title></path><text x="248.5" y="233.1" text-anchor="middle" font-size="11" fill="#0b0b0b">0.536</text>
+<path d="M268.5,400 V247.1 Q268.5,243.1 272.5,243.1 H300.5 Q304.5,243.1 304.5,247.1 V400 Z" fill="#eb6834"><title>All four operators (deepest OOD = depth 7) - Etz 1 world - out of distribution: 0.523</title></path><text x="286.5" y="237.1" text-anchor="middle" font-size="11" fill="#0b0b0b">0.523</text>
+<text x="267.5" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Etz</text>
+<text x="267.5" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">1 world</text>
+<path d="M365.5,400 V204.9 Q365.5,200.9 369.5,200.9 H397.5 Q401.5,200.9 401.5,204.9 V400 Z" fill="#2a78d6"><title>All four operators (deepest OOD = depth 7) - Etz 4 worlds - in distribution: 0.664</title></path><text x="383.5" y="194.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.664</text>
+<path d="M403.5,400 V201.9 Q403.5,197.9 407.5,197.9 H435.5 Q439.5,197.9 439.5,201.9 V400 Z" fill="#eb6834"><title>All four operators (deepest OOD = depth 7) - Etz 4 worlds - out of distribution: 0.674</title></path><text x="421.5" y="191.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.674</text>
+<text x="402.5" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Etz</text>
+<text x="402.5" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">4 worlds</text>
+<line x1="95.5" y1="444" x2="439.5" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="267.5" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">All four operators (deepest OOD = depth 7)</text>
+<path d="M530.5,400 V182.8 Q530.5,178.8 534.5,178.8 H562.5 Q566.5,178.8 566.5,182.8 V400 Z" fill="#2a78d6"><title>Hard variant, SM + MED (deepest OOD = depth 9) - R0 flat MLP - in distribution: 0.737</title></path><text x="548.5" y="172.8" text-anchor="middle" font-size="11" fill="#0b0b0b">0.737</text>
+<path d="M568.5,400 V218.9 Q568.5,214.9 572.5,214.9 H600.5 Q604.5,214.9 604.5,218.9 V400 Z" fill="#eb6834"><title>Hard variant, SM + MED (deepest OOD = depth 9) - R0 flat MLP - out of distribution: 0.617</title></path><text x="586.5" y="208.9" text-anchor="middle" font-size="11" fill="#0b0b0b">0.617</text>
+<text x="567.5" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">R0</text>
+<text x="567.5" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">flat MLP</text>
+<path d="M665.5,400 V295.1 Q665.5,291.1 669.5,291.1 H697.5 Q701.5,291.1 701.5,295.1 V400 Z" fill="#2a78d6"><title>Hard variant, SM + MED (deepest OOD = depth 9) - Etz 1 world - in distribution: 0.363</title></path><text x="683.5" y="285.1" text-anchor="middle" font-size="11" fill="#0b0b0b">0.363</text>
+<path d="M703.5,400 V306.3 Q703.5,302.3 707.5,302.3 H735.5 Q739.5,302.3 739.5,306.3 V400 Z" fill="#eb6834"><title>Hard variant, SM + MED (deepest OOD = depth 9) - Etz 1 world - out of distribution: 0.326</title></path><text x="721.5" y="296.3" text-anchor="middle" font-size="11" fill="#0b0b0b">0.326</text>
+<text x="702.5" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Etz</text>
+<text x="702.5" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">1 world</text>
+<path d="M800.5,400 V264.2 Q800.5,260.2 804.5,260.2 H832.5 Q836.5,260.2 836.5,264.2 V400 Z" fill="#2a78d6"><title>Hard variant, SM + MED (deepest OOD = depth 9) - Etz 4 worlds - in distribution: 0.466</title></path><text x="818.5" y="254.2" text-anchor="middle" font-size="11" fill="#0b0b0b">0.466</text>
+<path d="M838.5,400 V284.8 Q838.5,280.8 842.5,280.8 H870.5 Q874.5,280.8 874.5,284.8 V400 Z" fill="#eb6834"><title>Hard variant, SM + MED (deepest OOD = depth 9) - Etz 4 worlds - out of distribution: 0.397</title></path><text x="856.5" y="274.8" text-anchor="middle" font-size="11" fill="#0b0b0b">0.397</text>
+<text x="837.5" y="417" text-anchor="middle" font-size="11.5" fill="#0b0b0b">Etz</text>
+<text x="837.5" y="431" text-anchor="middle" font-size="11.5" fill="#0b0b0b">4 worlds</text>
+<line x1="530.5" y1="444" x2="874.5" y2="444" stroke="#8a8983" stroke-width="1"/>
+<text x="702.5" y="462" text-anchor="middle" font-size="12.5" font-weight="600" fill="#52514e">Hard variant, SM + MED (deepest OOD = depth 9)</text>
+<line x1="60" y1="400" x2="910" y2="400" stroke="#52514e" stroke-width="1"/>
+<text x="60" y="506" font-size="11" fill="#8a8983">Data: results_easy.jsonl, results_hard.jsonl.</text>
+</svg>

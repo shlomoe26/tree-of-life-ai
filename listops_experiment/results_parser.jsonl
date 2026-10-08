@@ -1,0 +1,5 @@
+{"seed": 0, "kind": "soft", "params": 215562, "acc": {"in": 0.545, "ood5": 0.352, "ood7": 0.3, "ood9": 0.317}}
+{"seed": 0, "kind": "l2r", "params": 215562, "acc": {"in": 0.423, "ood5": 0.319, "ood7": 0.265, "ood9": 0.263}}
+{"seed": 1, "kind": "soft", "params": 215562, "acc": {"in": 0.435, "ood5": 0.323, "ood7": 0.322, "ood9": 0.329}}
+{"seed": 1, "kind": "l2r", "params": 215562, "acc": {"in": 0.417, "ood5": 0.316, "ood7": 0.271, "ood9": 0.243}}
+{"seed": 2, "kind": "soft", "params": 215562, "acc": {"in": 0.428, "ood5": 0.329, "ood7": 0.312, "ood9": 0.318}}

@@ -1,0 +1,16 @@
+{"seed": 0, "kind": "R0", "params": 208554, "acc": {"in": 0.953, "ood5": 0.852, "ood7": 0.862, "ood9": 0.886}}
+{"seed": 0, "kind": "MultiStat", "params": 207434, "acc": {"in": 0.955, "ood5": 0.884, "ood7": 0.863, "ood9": 0.909}}
+{"seed": 0, "kind": "R0_resid", "params": 208555, "acc": {"in": 0.956, "ood5": 0.868, "ood7": 0.846, "ood9": 0.885}}
+{"seed": 0, "kind": "MultiStat_resid", "params": 207435, "acc": {"in": 0.96, "ood5": 0.893, "ood7": 0.868, "ood9": 0.926}}
+{"seed": 0, "kind": "Linear", "params": 9802, "acc": {"in": 0.377, "ood5": 0.313, "ood7": 0.314, "ood9": 0.337}}
+{"seed": 0, "kind": "GRC", "params": 208290, "acc": {"in": 0.451, "ood5": 0.395, "ood7": 0.362, "ood9": 0.394}}
+{"seed": 1, "kind": "R0", "params": 208554, "acc": {"in": 0.954, "ood5": 0.879, "ood7": 0.861, "ood9": 0.889}}
+{"seed": 1, "kind": "MultiStat", "params": 207434, "acc": {"in": 0.959, "ood5": 0.899, "ood7": 0.886, "ood9": 0.915}}
+{"seed": 1, "kind": "R0_resid", "params": 208555, "acc": {"in": 0.948, "ood5": 0.855, "ood7": 0.855, "ood9": 0.888}}
+{"seed": 1, "kind": "MultiStat_resid", "params": 207435, "acc": {"in": 0.961, "ood5": 0.893, "ood7": 0.877, "ood9": 0.905}}
+{"seed": 1, "kind": "Linear", "params": 9802, "acc": {"in": 0.379, "ood5": 0.308, "ood7": 0.32, "ood9": 0.333}}
+{"seed": 1, "kind": "GRC", "params": 208290, "acc": {"in": 0.461, "ood5": 0.378, "ood7": 0.377, "ood9": 0.387}}
+{"seed": 2, "kind": "R0", "params": 208554, "acc": {"in": 0.945, "ood5": 0.828, "ood7": 0.831, "ood9": 0.878}}
+{"seed": 2, "kind": "MultiStat", "params": 207434, "acc": {"in": 0.962, "ood5": 0.892, "ood7": 0.871, "ood9": 0.91}}
+{"seed": 2, "kind": "R0_resid", "params": 208555, "acc": {"in": 0.944, "ood5": 0.833, "ood7": 0.834, "ood9": 0.882}}
+{"seed": 2, "kind": "MultiStat_resid", "params": 207435, "acc": {"in": 0.965, "ood5": 0.878, "ood7": 0.86, "ood9": 0.896}}
